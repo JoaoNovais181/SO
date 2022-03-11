@@ -10,7 +10,7 @@
 int procuraMatriz (int **matrix, int key)
 {
     pid_t pid;
-    int created_processes = 0, status, f=0;
+    int status, f=0;
     int pids[L];
 
     for (int i=0 ; i<L ; i++)
