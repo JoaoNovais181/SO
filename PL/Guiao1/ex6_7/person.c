@@ -29,7 +29,7 @@ int new_person (char *name, int age)
 
     close(fd);
 
-    printf("Registo %d", res/sizeof(Person));
+    printf("Registo %d\n", res/sizeof(Person));
 
     return res/sizeof(Person);
 }
@@ -108,5 +108,20 @@ int dump_People ()
     }
 
     close(fd);
+    return 0;
+}
+
+int person_file_clean ()
+{
+    int fd = open(FILENAME, O_RDONLY | O_WRONLY | O_TRUNC , 640);
+    if (fd<0)
+    {
+        printf("Msg: %s, id: %d\n", strerror(errno), errno);
+        perror("Erro a abrir ficheiro de pessoas");
+        return -1;
+    }
+    close(fd);
+
+    write (1, "Limpeza das pessoas feita\n", 27);
     return 0;
 }

@@ -20,3 +20,4 @@ int new_person (char  *name, int age);
 int person_change_age (char *name, int age);
 int person_change_age2 (long offset, int age);
 int dump_People ();
+int person_file_clean ();

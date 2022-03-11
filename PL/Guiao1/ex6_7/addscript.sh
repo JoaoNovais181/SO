@@ -1,8 +1,8 @@
-#!/bin/bash
+#! /bin/bash
 
-for (($i = 1 ; $i <= 10 ; $i++))
+for ((i=0 ; i<= $1 ; i++))
 do
-    IDADE=$(((RANDOM % 100)-1))
+    IDADE=$(((RANDOM % 100)+1))
     echo "./pessoas -i Pessoa${i} ${IDADE}"
 
     ./pessoas -i Pessoa${i} $IDADE

@@ -5,6 +5,9 @@ int main (int argc, char *argv[])
     if (!strcmp(argv[1], "-d"))
         dump_People();
 
+    if (!strcmp(argv[1], "-c"))
+        person_file_clean();
+    
     if (argc < 4)
         return 0;
 
