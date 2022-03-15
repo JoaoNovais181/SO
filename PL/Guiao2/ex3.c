@@ -12,9 +12,10 @@ int main ()
         pid = fork();
         if (pid == 0)
         {
-            printf("Filho%d : pid %d\n", filho_num, getpid());
-            printf("Filho%d : pid pai %d\n", filho_num, getppid());
-        
+            // printf("Filho%d : pid %d\n", filho_num, getpid());
+            // printf("Filho%d : pid pai %d\n", filho_num, getppid());
+            printf("[proc #%d] pid: %d\n", filho_num, getpid());
+
             _exit(filho_num);
         }
         else
@@ -23,11 +24,12 @@ int main ()
 
             if (WIFEXITED(status))
             {
-                printf("Pai: recebi o valor %d para o pid %d\n", WEXITSTATUS(status), pid_filho);
+                printf("[pai] process %d exited. exit code: %d\n", pid_filho, WEXITSTATUS(status));
+                // printf("Pai: recebi o valor %d para o pid %d\n", WEXITSTATUS(status), pid_filho);
             }
             else
             {
-                printf("erro\n");
+                printf("error\n");
             }
         }
     }
