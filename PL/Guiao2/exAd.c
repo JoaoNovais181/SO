@@ -131,7 +131,7 @@ int main (int argc, char *args[])
     srand(time(NULL));
     fillMatrix(matrix, randMax);
 
-    int fd = open(FILENAME, O_WRONLY | O_CREAT, 640);
+    int fd = open(FILENAME, O_CREAT | O_WRONLY | O_TRUNC , 640);
     if (fd<0)
     {
         printf("Error: %s. errno: %d", strerror(errno), errno);

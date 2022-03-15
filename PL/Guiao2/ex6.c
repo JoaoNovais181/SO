@@ -74,11 +74,13 @@ int main (int argc, char *args[])
     }
     printf("Done\n");
 
-    int needle;
-    needle = atoi(args[1]);
+    int needle = atoi(args[1]);
 
     int row = procuraMatriz(m,needle);
     printf("\nSearching with needle=%d returned: %d\n", needle, row);
+
+    for (int i=0 ; i<L ; i++) free(m[i]);
+    free(m);
 
     return 0;
 }
