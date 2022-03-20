@@ -46,7 +46,7 @@ int main (int argc, char *args[])
                 {
                     if ((pid=fork())==0)
                     {
-                        printf("\n[%d] background\n", getpid());
+                        printf("[%d] background\n", getpid());
                         write(0, " $ ", 3);
                         if (execl("/bin/sh", "sh", "-c", buffer, NULL))
                         {

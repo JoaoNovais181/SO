@@ -6,10 +6,10 @@
 
 int main (int argc, char *args[])
 {
-    if (argc<1)
+    if (argc<2)
     {
         printf("Deve introduzir pelo menos 1 argumento executavel\n");
-        exit(0);
+        return -1;
     }
 
     pid_t pid;

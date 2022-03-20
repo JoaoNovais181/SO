@@ -28,7 +28,5 @@ int main ()
         }
     }
 
-    printf("oalalaoaoaolal\n");
-
     return 0;
 }
