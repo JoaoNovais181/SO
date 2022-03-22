@@ -37,10 +37,14 @@ int main (int argc, char *args[])
                     nexecs[i-1]++;
                 }
             }
-            
+            else 
+            {
+                pids[i-1] = -1;
+            }
         }
         for (int i=0 ; i<argc-1 ; i++)
         {
+            if (pids[i]==-1) continue;
             waitpid(pids[i], &status, 0);
             if (WIFEXITED(status))
             {

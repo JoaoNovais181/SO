@@ -7,7 +7,7 @@ int new_person (char *name, int age)
     if (!strncpy(p.name, name, MAX_NAME_SIZE))
         return -1;
 
-    int fd = open (FILENAME, O_CREAT | O_APPEND | O_WRONLY, 666);
+    int fd = open (FILENAME, O_CREAT | O_APPEND | O_WRONLY, 0640);
     if (fd < 0)
     {
         printf("Msg: %s, id: %d\n", strerror(errno), errno);
@@ -36,7 +36,7 @@ int new_person (char *name, int age)
 
 int person_change_age (char *name, int age)
 {
-    int fd = open (FILENAME, O_RDWR, 640);
+    int fd = open (FILENAME, O_RDWR, 0640);
     if (fd < 0)
     {
         printf("Msg: %s, id: %d\n", strerror(errno), errno);
@@ -62,7 +62,7 @@ int person_change_age (char *name, int age)
 
 int person_change_age2 (long offset, int age)
 {
-    int fd = open (FILENAME, O_RDWR, 640);
+    int fd = open (FILENAME, O_RDWR, 0640);
     if (fd < 0)
     {
         printf("Msg: %s, id: %d\n", strerror(errno), errno);
@@ -88,7 +88,7 @@ int person_change_age2 (long offset, int age)
 // Funcao que fiz para experimentar so
 int dump_People ()
 {
-    int fd = open(FILENAME, O_RDONLY, 640);
+    int fd = open(FILENAME, O_RDONLY, 0640);
     if (fd <0)
     {
         printf("Msg: %s, id: %d\n", strerror(errno), errno);
@@ -113,7 +113,7 @@ int dump_People ()
 
 int person_file_clean ()
 {
-    int fd = open(FILENAME, O_RDONLY | O_WRONLY | O_TRUNC , 640);
+    int fd = open(FILENAME, O_RDONLY | O_WRONLY | O_TRUNC , 0640);
     if (fd<0)
     {
         printf("Msg: %s, id: %d\n", strerror(errno), errno);
