@@ -18,17 +18,21 @@ int main (int argc, char *args[])
     {
         if ((pid=fork())==0)
         {
-            if (execlp(args[i], args[i], NULL))
-            {
-                perror("Algo correu mal");
-            }
+            printf("Sou o filho %d e vou executar o comando %s\n", getpid(), args[i]);
+
+            int exec_ret = execlp(args[i], args[i], NULL);
+            
+            perror("reched return");
+            _exit(exec_ret);
         }
     }
 
     for (int i=1 ; i<argc ; i++)
     {
+        printf("Sou o pai e estou a espera dos filhos\n");
         wait(NULL);
     }
+    printf("Todos os filhos executaram\n");
     
 
     return 0;

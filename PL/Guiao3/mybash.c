@@ -7,6 +7,20 @@
 
 #define MAX_BUF 1024
 
+int numDigits (int num)
+{
+    num = num<1 ?-1*num :num;
+    if (num<10) return 1;
+    if (num<100) return 2;
+    if (num<1000) return 3;
+    if (num<10000) return 4;
+    if (num<100000) return 5;
+    if (num<1000000) return 6;
+    if (num<10000000) return 7;
+    if (num<100000000) return 8;
+    return 9;
+}
+
 int main (int argc, char *args[])
 {
     int bytes_read, created_processes = 0, running=1;
@@ -46,7 +60,11 @@ int main (int argc, char *args[])
                 {
                     if ((pid=fork())==0)
                     {
+                        // int n = 14+numDigits(getpid());
+                        // char buf[n];
+                        // snprintf(buf, n, "[%d] background\n", getpid());
                         printf("[%d] background\n", getpid());
+                        // write(0, buf, n);
                         write(0, " $ ", 3);
                         if (execl("/bin/sh", "sh", "-c", buffer, NULL))
                         {
@@ -57,6 +75,11 @@ int main (int argc, char *args[])
                     else
                     {
                         pid_t tp = wait(NULL);
+                        // int n = 14+numDigits(tp);
+                        // char buf[n];
+                        // snprintf(buf, n, "[%d] terminated\n", tp);
+                        // printf("[%d] background\n", getpid());
+                        // write(0, buf, n);
                         printf("\n[%d] terminated\n", tp);
                         write(0,  " $ ", 3);
                     }

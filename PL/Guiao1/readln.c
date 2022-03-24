@@ -32,7 +32,6 @@ int readC (int fd, char *c)
 }
 
 
-
 ssize_t readln(int fd, char *buf, size_t size)
 {
     int i = 0;
