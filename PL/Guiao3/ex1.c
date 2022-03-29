@@ -5,13 +5,8 @@
 
 int main ()
 {
-    if (execlp("ls", "ls", NULL))
-    {
-        perror("Algo correu mal");
-        // exit(errno);
-    }
-    
-    printf("ola\n\n\n");
+    execlp("ls", "ls", NULL);
+    perror("Algo correu mal");
     
     return 0;
 }
