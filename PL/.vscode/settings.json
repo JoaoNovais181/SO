@@ -1,6 +1,12 @@
 {
     "files.associations": {
         "string.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "system.h": "c",
+        "errno.h": "c",
+        "*.tcc": "c",
+        "fstream": "c",
+        "unistd.h": "c",
+        "cstdlib": "c"
     }
 }

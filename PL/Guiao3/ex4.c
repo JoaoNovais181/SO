@@ -61,10 +61,11 @@ int mysystem(const char *command)
     char **exec_args = malloc(max * sizeof(char *));
     char *string, *dup = strdup(command);
 
-    string=strsep(&dup, " ");
+    // string=strsep(&dup, " ");
 
-    while (string!=NULL)
+    while ((string = strsep(&dup, " "))!=NULL)
     {
+        if (strlen(string)<1) continue;
         // printf("string: %s\n", string);
         if (i>=max)
         {
@@ -118,11 +119,7 @@ int mysystem(const char *command)
 int main (int argc, char *args[])
 {
     int aux;
-    if ((aux=mysystem("ls -l")))
-    {
-        perror("Something went wrong");
-        return errno;
-    }
+    mysystem("wc ");
 
     return 0;
 }

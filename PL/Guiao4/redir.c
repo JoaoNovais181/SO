@@ -15,16 +15,17 @@ int mysystem(const char *command)
     char **exec_args = malloc(max * sizeof(char *));
     char *string, *dup = strdup(command);
 
-    string=strsep(&dup, " ");
-
-    while (string!=NULL)
+    while ((string = strsep(&dup, " "))!=NULL)
     {
-        if (i+1>=max)
+        if (strlen(string)<1) continue;
+         
+        if (i>=max)
         {
             max += max*0.5;
             exec_args = realloc(exec_args, max * sizeof(char *));
         }
-        exec_args[i++] = string; string = strsep(&dup, " ");
+        exec_args[i++] = string;
+        string = strsep(&dup, " ");
     }
 
     exec_args[i] = NULL; 

@@ -12,9 +12,9 @@ int main ()
     int ifd=open("/etc/passwd", O_RDONLY);
     int ofd=open("saida.txt", O_CREAT | O_TRUNC | O_WRONLY, 0666);
     int efd=open("erros.txt", O_CREAT | O_TRUNC | O_WRONLY, 0666);
-    int fdin=dup(0);
-    int fdout=dup(1);
-    int fderr=dup(2);
+    int fdin=dup(0);     //   copia stdin
+    int fdout=dup(1);    //   copia stdout
+    int fderr=dup(2);    //   copia stderr
 
     dup2(ifd, 0);
     dup2(ofd, 1);
