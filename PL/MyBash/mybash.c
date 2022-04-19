@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <string.h>
 #include "Execute.h"
+#include "readln.h"
 
 #define MAX_BUF 1024
 
@@ -92,7 +93,7 @@ int bash()
     write(0, " $ ", 3);
     do
     {
-        if ((bytes_read = read(0, buffer, MAX_BUF))<0)
+        if ((bytes_read = readln(0, buffer, MAX_BUF))<0)
         {
             perror("Someting went wrong!");
             exit(errno);

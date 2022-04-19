@@ -71,15 +71,7 @@ int mysystem(char **exec_args, int argc)
             break;
         case 0:
             int exec_ret = execvp(clean_args[0], clean_args);
-            // for (int i=0 ; i<cleanIndex ; free(clean_args[i++]));
-            // for (int i=0 ; i<*argc ; free(exec_args[0][i++]));
-            // free(exec_args[0]);
-            // free(clean_args);
-            // free(exec_args);
-            // free(argc);
-            // free(tokens);
             _exit(exec_ret);
-            // _exit(errno);
             break;
         default:
             int status;

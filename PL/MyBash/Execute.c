@@ -1,5 +1,12 @@
 #include "Execute.h"
 
+/**
+ * @brief Tokenizes string by using ' ' as a delimiter
+ * 
+ * @param command String to tokenize
+ * @param N Poiter to integer that will be written with the number of tokens in the string (if not NULL)
+ * @return List of tokens in string
+ */
 char **tokenize (char *command, int *N)
 {
     if (!command) return NULL;
@@ -25,6 +32,13 @@ char **tokenize (char *command, int *N)
     return exec_args;
 }
 
+/**
+ * @brief Executes the first command on piped command succession
+ * 
+ * @param filedes Pipe
+ * @param command Command to execute
+ * @param argc Number of arguments on command
+ */
 void filho0 (int *filedes, char **command, int argc)
 {
     close(filedes[0]);
@@ -35,6 +49,13 @@ void filho0 (int *filedes, char **command, int argc)
     mysystem(command, argc);
 }
 
+/**
+ * @brief Executes the last command on piped command succession
+ * 
+ * @param filedes Pipe
+ * @param command Command to execute
+ * @param argc Number of arguments on command
+ */
 void filhoN (int *filedes, char **command, int argc)
 {
     close(filedes[1]);
@@ -45,6 +66,14 @@ void filhoN (int *filedes, char **command, int argc)
     mysystem(command, argc);
 }
 
+/**
+ * @brief Executes the command on the middle of the piped command succession
+ * 
+ * @param filedesE Entry pipe
+ * @param filedesS Out pipe
+ * @param command Command to execute
+ * @param argc Number of arguments on command
+ */
 void filhoi (int *filedesE, int *filedesS, char **command, int argc)
 {
     close(filedesE[1]);
@@ -59,6 +88,14 @@ void filhoi (int *filedesE, int *filedesS, char **command, int argc)
     mysystem(command, argc);
 }
 
+/**
+ * @brief Executes the commands given as argument with pipes connecting their input/output
+ * 
+ * @param commands List of commands to execute
+ * @param argCs  Array of integer containing the number of arguments of every command
+ * @param N  Number of commands
+ * @return 0 if everything went well
+ */
 int executePipes (char ***commands, int *argCs, int N)
 {
     int **filedes = malloc((N-1)*sizeof(int*));
@@ -119,6 +156,12 @@ int executePipes (char ***commands, int *argCs, int N)
     return 0;
 }
 
+/**
+ * @brief Function to parse the command into arguments and verify if the execution is pipeles or with pipes
+ * 
+ * @param command line read from the bash that is parsed
+ * @return 0 if everything is OK
+ */
 int execute (const char *command)
 {
     int MaxCommands=3, nCommands=0, nTokens=0, MaxArgs=20, nArg=0;
