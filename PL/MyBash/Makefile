@@ -16,7 +16,8 @@ CC=gcc
 CC_FLAGS= -Wall        \
 		  -g		   \
 		  -std=gnu11   \
-		  -ggdb        \
+		  -ggdb3       \
+		  -no-pie      \
 		  -O2		
  
 # Command used at clean target

@@ -1,3 +1,6 @@
+#ifndef EXECUTE
+#define EXECUTE
+
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
@@ -6,13 +9,8 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
-#ifndef MYSYSTEM
-#define MYSYSTEM
+#include "MySystem.h"
 
-
-int mysystem(char **exec_args, int argc);
-// int mysystem(char ***exec_args, int *argc, char **tokens);
-
-
+int execute (const char *command);
 
 #endif

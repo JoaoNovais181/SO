@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <string.h>
-#include "MySystem.h"
+#include "Execute.h"
 
 #define MAX_BUF 1024
 
@@ -32,8 +32,8 @@ int executeForeground (const char *command)
         ret=-1;
         break;
     case 0:
-        if (mysystem(command))
-            printf("Command Not found: %s\n", command);
+        if (execute(command))
+            printf("Error in command: %s\n", command);
         _exit(0);
     default:
         int status;
@@ -58,8 +58,8 @@ int executeBackground (const char *command)
             {
                 printf("[%d] background\n", getpid());
                 write(0, " $ ", 3);
-                if (mysystem(command))
-                    printf("Command Not found: %s\n", command);
+                if (execute(command))
+                    printf("Error in command: %s\n", command);
                 _exit(0);
             }
             else

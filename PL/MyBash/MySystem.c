@@ -1,10 +1,9 @@
 #include "MySystem.h"
-#include <string.h>
 
 int redirStdin (const char *in)
 {
     int fdin = open(in, O_RDONLY);
-    if (dup2(fdin, 0)==-1) { strerror(errno); exit(errno);}
+    if (dup2(fdin, 0)==-1) { fprintf(stderr, "Erro %s\n", strerror(errno)); exit(errno);}
     close(fdin);
     return 0;
 }
@@ -14,7 +13,7 @@ int redirStdout (const char *out, int out_append)
     int fdout;
     if (out_append) fdout = open(out, O_CREAT | O_WRONLY | O_APPEND, 0666);
     else fdout = open(out, O_CREAT | O_TRUNC | O_WRONLY , 0666);
-    if (dup2(fdout, 1)==-1)  { strerror(errno); exit(errno);}
+    if (dup2(fdout, 1)==-1)  { fprintf(stderr, "Erro %s\n", strerror(errno)); exit(errno);}
     close(fdout);
     return 0;
 }
@@ -24,44 +23,13 @@ int redirStderr (const char *err, int err_append)
     int fderr;
     if (err_append) fderr = open(err, O_CREAT | O_WRONLY | O_APPEND, 0666);
     else fderr = open(err, O_CREAT | O_TRUNC | O_WRONLY , 0666);
-    if (dup2(fderr, 2)==-1) { strerror(errno); exit(errno);}
+    if (dup2(fderr, 2)==-1) { fprintf(stderr, "Erro %s\n", strerror(errno)); exit(errno);}
     close(fderr);
     return 0;
 }
 
-char **tokenize (char *command, int *N)
+int mysystem(char **exec_args, int argc)
 {
-    if (!command) return NULL;
-    int max = 20, i=0;
-    char *string;
-    char **exec_args = malloc(max * sizeof(char *));
-
-
-    while ((string = strsep(&command, " "))!=NULL)
-    {
-        if (strlen(string)<1) continue;
-        if (i>=max)
-        {
-            max += max*0.5;
-            exec_args = realloc(exec_args, max * sizeof(char *));
-        }
-        exec_args[i++] = string;
-    }
-
-    exec_args[i] = NULL;
-    if (N) *N = i;
-
-    return exec_args;
-}
-
-int mysystem(const char *command)
-{
-    if (command == NULL)
-        return 2;
-
-    int argc=0;
-    char *dup = strdup(command);
-    char **exec_args = tokenize(dup, &argc);
     char **clean_args = malloc((argc+1)*sizeof(char*));
 
     char *in = NULL, *out=NULL, *err=NULL;
@@ -87,6 +55,13 @@ int mysystem(const char *command)
     }
     clean_args[cleanIndex] = NULL;
 
+    if (in)
+        redirStdin(in);
+    if (out)
+        redirStdout(out, out_append);
+    if (err)
+        redirStderr(err, err_append);
+
     int res;
     pid_t pid=fork();
     switch (pid)
@@ -95,15 +70,16 @@ int mysystem(const char *command)
             res = -1;
             break;
         case 0:
-            if (in)
-                redirStdin(in);
-            if (out)
-                redirStdout(out, out_append);
-            if (err)
-                redirStderr(err, err_append);
-
             int exec_ret = execvp(clean_args[0], clean_args);
+            // for (int i=0 ; i<cleanIndex ; free(clean_args[i++]));
+            // for (int i=0 ; i<*argc ; free(exec_args[0][i++]));
+            // free(exec_args[0]);
+            // free(clean_args);
+            // free(exec_args);
+            // free(argc);
+            // free(tokens);
             _exit(exec_ret);
+            // _exit(errno);
             break;
         default:
             int status;
@@ -116,8 +92,10 @@ int mysystem(const char *command)
             break;
     }
 
-    free(dup);
+    // free(exec_args[0]);
     free(clean_args);
     free(exec_args);
+    // free(argc);
+    // free(tokens);
     return res;
 }

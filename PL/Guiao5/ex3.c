@@ -1,12 +1,12 @@
-    #include <unistd.h>
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <errno.h>
-    #include <sys/wait.h>
-    #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/wait.h>
+#include <string.h>
 
-    #define BUF_MAX 1024
+#define BUF_MAX 1024
 
 
 int main ()
